@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Score Controller</title>
+    <style>
+        .team { margin: 20px; padding: 10px; }
+        button { font-size: 20px; margin: 5px; padding: 10px 15px; }
+    </style>
+</head>
+<body>
+    <h1>BASKETBALL SCORE CONTROLLER</h1>
+    
+    <div class="team">
+        <h2>HOME TEAM</h2>
+        <button onclick="updateScore('A', 1)">+1</button>
+        <button onclick="updateScore('A', 2)">+2</button>
+        <button onclick="updateScore('A', 3)">+3</button>
+        <button onclick="updateScore('A', -1)">-1</button>
+    </div>
+    
+    <div class="team">
+        <h2>AWAY TEAM</h2>
+        <button onclick="updateScore('B', 1)">+1</button>
+        <button onclick="updateScore('B', 2)">+2</button>
+        <button onclick="updateScore('B', 3)">+3</button>
+        <button onclick="updateScore('B', -1)">-1</button>
+    </div>
+    
+    <script>
+        const SHEET_ID = "1j_RUGDR14034UkZvFE10QVjnQ_JBSuwGj44wiJCrLVg"; // Replace with your Google Sheet ID
+        const API_KEY = "AIzaSyB5Ml1LTG0IsyM-9MRWDcLsrq7PJJnY-T8";   // Get from https://developers.google.com/workspace/guides/create-credentials
+
+        async function updateScore(team, points) {
+            const response = await fetch(`https://sheets.googleapis.com/v4/spreadsheets/${SHEET_ID}/values/Sheet1!B2?valueInputOption=USER_ENTERED&key=${API_KEY}`, {
+                method: "PUT",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ values: [[points]] })
+            });
+            alert("Score updated!");
+        }
+    </script>
+</body>
+</html>

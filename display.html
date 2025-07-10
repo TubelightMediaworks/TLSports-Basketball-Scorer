@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Score Display</title>
+    <style>
+        body { 
+            background: transparent; 
+            font-family: Arial, sans-serif;
+            color: white;
+            text-shadow: 3px 3px 5px black;
+        }
+        .scoreboard {
+            display: flex;
+            justify-content: center;
+            font-size: 10em;
+            text-align: center;
+        }
+        .team { margin: 0 50px; }
+    </style>
+</head>
+<body>
+    <div class="scoreboard">
+        <div class="team" id="teamA">HOME<br>0</div>
+        <div style="font-size: 0.5em; margin-top: 1.5em;">-</div>
+        <div class="team" id="teamB">AWAY<br>0</div>
+    </div>
+
+    <script>
+        const SHEET_ID = "YOUR_SHEET_ID"; // Same as before
+        const API_KEY = "YOUR_API_KEY";
+        
+        async function fetchScores() {
+            const response = await fetch(`https://sheets.googleapis.com/v4/spreadsheets/${SHEET_ID}/values/Sheet1!A2:D2?key=${API_KEY}`);
+            const data = await response.json();
+            const [teamA, scoreA, teamB, scoreB] = data.values[0];
+            
+            document.getElementById("teamA").innerHTML = `${teamA}<br>${scoreA}`;
+            document.getElementById("teamB").innerHTML = `${teamB}<br>${scoreB}`;
+        }
+        
+        // Update every 3 seconds
+        setInterval(fetchScores, 3000);
+    </script>
+</body>
+</html>
