@@ -30,7 +30,7 @@
         const API_KEY = "YOUR_API_KEY";
         
         async function fetchScores() {
-            const response = await fetch(`https://sheets.googleapis.com/v4/spreadsheets/${SHEET_ID}/values/Sheet1!A2:D2?key=${API_KEY}`);
+            const response = await fetch(`https://sheets.googleapis.com/v4/spreadsheets/1j_RUGDR14034UkZvFE10QVjnQ_JBSuwGj44wiJCrLVg/values/Sheet1!A2:D2?key=AIzaSyB5Ml1LTG0IsyM-9MRWDcLsrq7PJJnY-T8`);
             const data = await response.json();
             const [teamA, scoreA, teamB, scoreB] = data.values[0];
             
